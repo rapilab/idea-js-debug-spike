@@ -43,3 +43,4 @@ Mocha
      - NodeCommandLineUtil.createCommandLineForTestTools -> NodeCommandLineUtil.createCommandLine
      - configureUsefulEnvironment
      - prependNodeDirToPATH
+         - NodeJsLocalInterpreter
