@@ -40,4 +40,6 @@ Mocha
  - MochaRunSettings
  - MochaRunProgramRunner
  - MochaRunProfileState.executeSync -> MochaRunProfileState.configureCommandLine
- - 
+     - NodeCommandLineUtil.createCommandLineForTestTools -> NodeCommandLineUtil.createCommandLine
+     - configureUsefulEnvironment
+     - prependNodeDirToPATH
