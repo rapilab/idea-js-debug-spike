@@ -1,0 +1,214 @@
+<idea-plugin>
+  <id>wallaby.js</id>
+  <name>Wallaby</name>
+  <version>1.0.216</version>
+  <vendor email="hello@wallabyjs.com" url="http://wallabyjs.com">Wallaby.js</vendor>
+
+  <description><![CDATA[
+  Wallaby.js is an intelligent test runner for JavaScript that continuously runs your tests. It
+        reports code coverage and other results to your code editor immediately as you change your code.
+        Wallaby.js uses various tricks to run your tests as fast as possible, such as runtime analysis to only execute tests
+         affected by code changes and parallel test execution.
+    ]]></description>
+
+  <idea-version since-build="183"/>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <actions>
+    <group id="WallabyHelpGroup" text="Wallaby.js" popup="true">
+      <action id="Wallaby.ShowLicense" class="com.wallaby.javascript.actions.ShowLicenseAction"
+              text="Manage License">
+      </action>
+      <action id="Wallaby.CopyDiagnosticsReport" class="com.wallaby.javascript.actions.CopyDiagnosticsReportAction"
+              text="Copy Diagnostics Report">
+      </action>
+      <add-to-group group-id="HelpMenu" anchor="last"/>
+    </group>
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <programRunner implementation="com.wallaby.javascript.execution.WallabyProgramRunner"/>
+    <configurationType implementation="com.wallaby.javascript.execution.WallabyConfigurationType"/>
+    <editor.linePainter implementation="com.wallaby.javascript.editor.WallabyLinePainter"/>
+    <colorSettingsPage implementation="com.wallaby.javascript.settings.WallabyColorSettingsPage"/>
+    <fileType name="Test Story File" implementationClass="com.wallaby.javascript.execution.testStory.TestStoryFileType"
+              fieldName="INSTANCE" language="TestStory" extensions="testStory"/>
+    <fileEditorProvider implementation="com.wallaby.javascript.execution.testStory.TestStoryFileEditorProvider"/>
+    <multiHostInjector implementation="com.wallaby.javascript.execution.testStory.TestStoryMultiHostInjector"/>
+    <lang.fileViewProviderFactory language="TestStory" implementationClass="com.wallaby.javascript.execution.testStory.TestStoryFileViewProviderFactory"/>
+    <lang.parserDefinition language="TestStory" implementationClass="com.wallaby.javascript.execution.testStory.TestStoryParserDefinition"/>
+    <lang.ast.factory language="TestStory" implementationClass="com.wallaby.javascript.execution.testStory.TestStoryASTFactory"/>
+    <highlightErrorFilter implementation="com.wallaby.javascript.execution.testStory.TestStoryHighlightErrorFilter"/>
+    <daemon.highlightInfoFilter implementation="com.wallaby.javascript.execution.testStory.TestStoryHighlightInfoFilter"/>
+    <editor.linePainter implementation="com.wallaby.javascript.editor.TestStoryLinePainter"/>
+  </extensions>
+
+
+  <project-components>
+    <component>
+      <implementation-class>com.wallaby.javascript.WallabyController</implementation-class>
+    </component>
+  </project-components>
+  <actions>
+    <action id="com.wallaby.javascript.actions.ShowLineTestsAction"
+            class="com.wallaby.javascript.actions.ShowLineTestsAction" text="Show Tests"
+            description="Display line covering tests">
+    </action>
+    <action id="com.wallaby.javascript.actions.ShowLastRunScreenShotAction"
+            class="com.wallaby.javascript.actions.ShowLastRunScreenShotAction" text="Show Screenshot"
+            description="Display last test run screenshot">
+    </action>
+    <action id="com.wallaby.javascript.actions.ShowLineUncoveredRangesAction"
+            class="com.wallaby.javascript.actions.ShowLineUncoveredRangesAction" text="Show Line Uncovered Ranges"
+            description="Display line ranges not covered by tests">
+    </action>
+    <action id="com.wallaby.javascript.actions.ShowFileUncoveredRangesAction"
+            class="com.wallaby.javascript.actions.ShowFileUncoveredRangesAction" text="Show File Uncovered Ranges"
+            description="Display file ranges not covered by tests">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt U"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.RunTestAction" class="com.wallaby.javascript.actions.RunTestAction"
+            text="Run Test" description="Run current context test">
+    </action>
+    <action id="com.wallaby.javascript.actions.RunTestFileAction"
+            class="com.wallaby.javascript.actions.RunTestFileAction"
+            text="Run File Tests" description="Run current test file tests">
+    </action>
+    <action id="com.wallaby.javascript.actions.RunAllTestsAction" class="com.wallaby.javascript.actions.RunAllTestsAction"
+            text="Run Project Tests" description="Run all tests in the project">
+    </action>
+    <action id="com.wallaby.javascript.actions.ShowValueAction" class="com.wallaby.javascript.actions.ShowValueAction"
+            text="Show Value" description="Show value of an expression under cursor">
+    </action>
+    <action id="com.wallaby.javascript.actions.CopyValueAction" class="com.wallaby.javascript.actions.CopyValueAction"
+            text="Copy Value" description="Copy the value of an expression under cursor">
+    </action>
+    <action id="com.wallaby.javascript.actions.ClearValueAction" class="com.wallaby.javascript.actions.ClearValueAction"
+            text="Clear Value" description="Clear the value on the line">
+    </action>
+    <action id="com.wallaby.javascript.actions.ClearFileValuesAction" class="com.wallaby.javascript.actions.ClearFileValuesAction"
+            text="Clear File Values" description="Clear the values in the line">
+    </action>
+    <action id="com.wallaby.javascript.actions.ClearAllValuesAction" class="com.wallaby.javascript.actions.ClearAllValuesAction"
+            text="Clear All Values" description="Clear all values in the project">
+    </action>
+    <action id="com.wallaby.javascript.actions.JumpToFailingTestAction"
+            class="com.wallaby.javascript.actions.JumpToFailingTestAction"
+            text="Jump to Failing Test" description="Jump to the last executed line covering failing test">
+    </action>
+    <action id="com.wallaby.javascript.actions.JumpToErrorSourceAction"
+            class="com.wallaby.javascript.actions.JumpToErrorSourceAction"
+            text="Jump to Error Source" description="Jump to the top stack entry of the error">
+    </action>
+    <action id="com.wallaby.javascript.actions.ShowAssertionErrorDiffAction"
+            class="com.wallaby.javascript.actions.ShowAssertionErrorDiffAction"
+            text="Show Expected and Actual Objects Diff"
+            description="Display the difference between expected and actual object">
+    </action>
+    <action id="com.wallaby.javascript.actions.UpdateTestSnapshotsAction" class="com.wallaby.javascript.actions.UpdateTestSnapshotsAction"
+            text="Update Test Snapshot(s)" description="Update test snapshot(s)">
+    </action>
+    <action id="com.wallaby.javascript.actions.UpdateFileSnapshotsAction"
+            class="com.wallaby.javascript.actions.UpdateFileSnapshotsAction"
+            text="Update File Snapshot(s)" description="Update file snapshot(s)">
+    </action>
+    <action id="com.wallaby.javascript.actions.UpdateProjectSnapshotsAction" class="com.wallaby.javascript.actions.UpdateProjectSnapshotsAction"
+            text="Update Project Snapshot(s)" description="Update project snapshot(s)">
+    </action>
+    <action id="com.wallaby.javascript.actions.ToggleTestFilterAction" class="com.wallaby.javascript.actions.ToggleTestFilterAction"
+            text="Toggle Test Filter" description="Toggle test filter">
+    </action>
+    <action id="com.wallaby.javascript.actions.ResetTestFilterAction" class="com.wallaby.javascript.actions.ResetTestFilterAction"
+            text="Reset Test Filter" description="Reset test filter">
+    </action>
+    <action id="com.wallaby.javascript.actions.DebugRevealTraceStepAction" class="com.wallaby.javascript.actions.DebugRevealTraceStepAction"
+            text="Reveal Debugger Trace Step" description="Reveal the current debugger session's trace step">
+    </action>
+    <action id="com.wallaby.javascript.actions.DebugStartAction" class="com.wallaby.javascript.actions.DebugStartAction"
+            text="Start Debugger" description="Start the Wallaby debugger">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt F5"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.ProfileTestAction" class="com.wallaby.javascript.actions.ProfileTestAction"
+            text="Profile Test" description="Record and display test CPU profile">
+    </action>
+    <action id="com.wallaby.javascript.actions.OpenTestStoryAction" class="com.wallaby.javascript.actions.OpenTestStoryAction"
+            text="Open Test Story" description="Open test story">
+    </action>
+    <action id="com.wallaby.javascript.actions.UnlockTestStoryAction" class="com.wallaby.javascript.actions.UnlockTestStoryAction"
+            text="Detach Test Story File from Debugger and Code" description="Detach test story file from debugger and code">
+    </action>
+    <action id="com.wallaby.javascript.actions.LockTestStoryAction" class="com.wallaby.javascript.actions.LockTestStoryAction"
+            text="Attach Test Story File to Debugger and Code" description="Attach test story file to debugger and code">
+    </action>
+    <action id="com.wallaby.javascript.actions.LoadStartOfTruncatedTestStoryAction" class="com.wallaby.javascript.actions.LoadStartOfTruncatedTestStoryAction"
+            text="Load Start of Test Story" description="Load start of test story">
+    </action>
+    <action id="com.wallaby.javascript.actions.LoadEndOfTruncatedTestStoryAction" class="com.wallaby.javascript.actions.LoadEndOfTruncatedTestStoryAction"
+            text="Load End of Test Story" description="Load end of test story">
+    </action>
+    <action id="com.wallaby.javascript.actions.DebugStopAction" class="com.wallaby.javascript.actions.DebugStopAction"
+            text="Stop Debugger" description="Stop the Wallaby debugger">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt F5"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceBackwardToSelectionAction"
+            class="com.wallaby.javascript.actions.PlayTraceBackwardToSelectionAction"
+            text="Run Back to Active Line" description="Run the debug session back to the active line">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift alt F6"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceForwardToSelectionAction"
+            class="com.wallaby.javascript.actions.PlayTraceForwardToSelectionAction"
+            text="Run to Active Line" description="Run the debug session forward to the active line">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt F6"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceNextStepAction" class="com.wallaby.javascript.actions.PlayTraceNextStepAction"
+            text="Step Into" description="Step into the next statement">
+      <keyboard-shortcut keymap="$default" first-keystroke="F7"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceNextStepOutAction" class="com.wallaby.javascript.actions.PlayTraceNextStepOutAction"
+            text="Step Out" description="Step out to the next statement above the current call stack">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt F8"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceNextStepOverAction"
+            class="com.wallaby.javascript.actions.PlayTraceNextStepOverAction"
+            text="Step Over" description="Step over to the next statement at or above the current call stack">
+      <keyboard-shortcut keymap="$default" first-keystroke="F8"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTracePrevStepAction" class="com.wallaby.javascript.actions.PlayTracePrevStepAction"
+            text="Step Back Into" description="Step back into the next statement">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift F7"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTracePrevStepOutAction" class="com.wallaby.javascript.actions.PlayTracePrevStepOutAction"
+            text="Step Back Out" description="Step back out to the next statement above the current call stack">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt shift F8"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTracePrevStepOverAction"
+            class="com.wallaby.javascript.actions.PlayTracePrevStepOverAction"
+            text="Step Back Over" description="Step back over to the next statement at or above the current call stack">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift F8"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceForwardToBreakpointAction"
+            class="com.wallaby.javascript.actions.PlayTraceForwardToBreakpointAction"
+            text="Run to Breakpoint" description="Run the debug session forward to the next breakpoint">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt F9"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.PlayTraceBackwardToBreakpointAction"
+            class="com.wallaby.javascript.actions.PlayTraceBackwardToBreakpointAction"
+            text="Run Back to Breakpoint" description="Run the debug session back to the next breakpoint">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt shift F9"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.JumpToTestAction" class="com.wallaby.javascript.actions.JumpToTestAction"
+            text="Jump to Test" description="Jump to a test">
+    </action>
+    <action id="com.wallaby.javascript.actions.StartExclusiveTestRunAction"
+            class="com.wallaby.javascript.actions.StartExclusiveTestRunAction"
+            text="Start Exclusive Test Run" description="Start the Wallaby exclusive test run for the current file or folder">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+    </action>
+    <action id="com.wallaby.javascript.actions.AddToExclusiveTestRunAction"
+            class="com.wallaby.javascript.actions.AddToExclusiveTestRunAction"
+            text="Add to Exclusive Test Run" description="Add the current file or folder to an exclusive test run">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+    </action>
+  </actions>
+</idea-plugin>
